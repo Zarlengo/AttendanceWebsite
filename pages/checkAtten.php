@@ -1,5 +1,5 @@
 <html><body><?php
-	require_once'Load_Script.php';
+	require_once 'Load_Script.php';
 
 	// initialize default credentials
 	$creds = new SourceCredentials($sourcename, $password, array($siteID));
@@ -17,37 +17,30 @@
 	if($_REQUEST["ClassID"] ) {
 		$classID = $_REQUEST['ClassID'];
 		$result = $classService->GetClassVisits($classID);
-		$cds = $result->GetClassVisitsResult->Class->Visits->Visit;
+
+		$cds = $result->Class->Visits;
 			$arraycnt = 0;
 			$arraycnt = count($cds);
 			if ($arraycnt > 1) {
 				for ($i = 0; $i < $arraycnt; $i++) {
-					$clientID = $cds[$i]->Client->ID;
-					$clientFirst = $cds[$i]->Client->FirstName;
-					$clientLast = $cds[$i]->Client->LastName;
+					$clientID = $cds[$i]->ClientId;
 					$unpaid = true;
 					$checkedIn = $cds[$i]->SignedIn;
-					if (strpos($cds[$i]->Service->Name, "Unpaid") === false) {$unpaid = false;}
-					$cdsHtml .= sprintf('<li>%s: %s, %s</li>', $clientID, $clientLast, $clientFirst);
+					if ($cds[$i]->ServiceName != null) {$unpaid = false;}
+					$cdsHtml .= sprintf('<li>%s: %s, %s</li>', $clientID);
 					
 					$clientList[] = array('ClientID' => $clientID,
-									'ClientFirst' => $clientFirst,
-									'ClientLast' => $clientLast,
 									'Unpaid' => $unpaid,
 									'CheckedIn' => $checkedIn);
 				}
 			} elseif ($arraycnt == 1) {
-					$clientID = $cds->Client->ID;
-					$clientFirst = $cds->Client->FirstName;
-					$clientLast = $cds->Client->LastName;
+					$clientID = $cds->ClientId;
 					$unpaid = true;
 					$checkedIn = $cds->SignedIn;
-					if (strpos($cds->Service->Name, "Unpaid") === false) {$unpaid = false;}
-					$cdsHtml .= sprintf('<li>%s: %s, %s</li>', $clientID, $clientLast, $clientFirst);
+					if ($cds->ServiceName != null) {$unpaid = false;}
+					$cdsHtml .= sprintf('<li>%s: %s, %s</li>', $clientID);
 					
 					$clientList[] = array('ClientID' => $clientID,
-									'ClientFirst' => $clientFirst,
-									'ClientLast' => $clientLast,
 									'Unpaid' => $unpaid,
 									'CheckedIn' => $checkedIn);
 			} else {

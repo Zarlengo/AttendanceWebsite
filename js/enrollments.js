@@ -83,8 +83,7 @@ $.post('pages/getEnrollments.php?' + $dateSuffix[1], function(data, success, dat
 		});
 		
 	
-	
-	$( window ).load(function() {
+	$(window).on('load', function() {
 		$classNum = $('#nextClass').attr('next');
 		$("tr.clientList").hide();
 		if ($classNum.length) {

@@ -9,33 +9,32 @@
 	$classService->SetDefaultUserCredentials($usercreds);
 	//$startDate = '2016-03-30T00:00:00+00:00';
 	//$endDate = '2016-03-31T00:00:00+00:00';
-	//$startDate = date(DateTime::ATOM);
 	
-	require_once'dateCheck.php';
+	require_once 'dateCheck.php';
 	if(isset($startDate) !== true) {$startDate = date(DateTime::ATOM);}
 	if(isset($endDate) !== true) {$endDate = $startDate;}
 	$result = $classService->GetClasses(array(), array(), array(), $startDate, $endDate, null, null, 0);
 	$cdsHtml = null;
 	$nextID = null;
-	if($result->GetClassesResult->ResultCount !== 0){
-		$cls = toArray($result->GetClassesResult->Classes->Class);
+	if($result->PaginationResponse->TotalResults !== 0){
+		$cls = toArray($result->Classes);
 		$cds = array();
 		foreach ($cls as $cl) {
 			$cds[] = array('ClassTime' => $cl->StartDateTime,
-							'ClassID' => $cl->ID,
-							'ScheduleID' => $cl->ClassScheduleID,
-							'DescID' => $cl->ClassDescription->ID,
+							'ClassID' => $cl->Id,
+							'ScheduleID' => $cl->ClassScheduleId,
+							'DescID' => $cl->ClassDescription->Id,
 							'ClassName' => $cl->ClassDescription->Name,
-							'Assistant' => $Class_Description_ID[$cl->ClassDescription->ID][Assistant],
-							'Ignore' => $Class_Description_ID[$cl->ClassDescription->ID][Ignore],
-							'Testing' => $Class_Description_ID[$cl->ClassDescription->ID][Testing],
+							'Assistant' => $Class_Description_ID[$cl->ClassDescription->Id][Assistant],
+							'Ignore' => $Class_Description_ID[$cl->ClassDescription->Id][Ignore],
+							'Testing' => $Class_Description_ID[$cl->ClassDescription->Id][Testing],
 							'CopyFrom' => $Class_Schedule_ID[$cl->ClassScheduleID][CopyFrom]);
 		}
 	
 		asort($cds);
-		/*echo '<pre>';
-		print_r($cds);
-		echo '</pre>';*/
+		// echo '<pre>';
+		// print_r($result);
+		// echo '</pre>';
 		$nextClass = 0;
 		foreach ($cds as $cd) {
 			if ( $cd['Testing'] == true ) {

@@ -11,8 +11,12 @@ $clientService->SetDefaultUserCredentials($usercreds);
 $cdsHtml = '<div class="container"><div class="row"><div class="col-sm-12"><table id="ClientTable" class="table table-hover table-condensed"><thead><tr><th>Rank</th><th>First Name</th><th>Last Name</th><th></th><th></th><th></th><th></th></tr></thead><tbody>';
 $cdsHtmlEnd = '</tbody></table></div></div></div>';
 
-$result = $clientService->GetClients(array());
-$cds = toArray($result->GetClientsResult->Clients->Client);
+
+$result = $clientService->GetClients(array_slice($idList, 0, 200, true));
+$cds = toArray($result->Clients);
+
+$result = $clientService->GetClients(array_slice($idList, 200, 400, true));
+$cds = array_merge($cds, toArray($result->Clients));
 
 $dropStringPre = '<div class="dropdown"><button class="btn btn-default dropdown-toggle" id="cLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ';
 $dropStringStyleHide = 'style="background-color:grey;color:#000;width:160px">';
@@ -90,26 +94,26 @@ foreach ($cds as $cd) {
 	$rankID = null;
 	$beltRank = null;
 	$activeID = 'hide';
-	$array = json_decode(json_encode($cd->CustomClientFields->CustomClientField), True);
+	$array = json_decode(json_encode($cd->CustomClientFields), True);
 	if (is_array($array[0])) {
-		$key = array_search($customRankID, array_column($array, 'ID'));
-		$key2 = array_search($customShowAtt, array_column($array, 'ID'));
+		$key = array_search($customRankID, array_column($array, 'Id'));
+		$key2 = array_search($customShowAtt, array_column($array, 'Id'));
 		if ($key !== false) {
 			$rankID = $array[$key]['Value'];
 		}
 		if ($key2 !== false) {
 			$activeID = $array[$key2]['Value'];
 		}
-	} elseif ($array['ID'] == $customRankID) {
+	} elseif ($array['Id'] == $customRankID) {
 		$rankID = $array['Value'];
-	} elseif ($array['ID'] == $customShowAtt) {
+	} elseif ($array['Id'] == $customShowAtt) {
 		$activeID = $array['Value'];
 	}
 	if ($rankID !== null){
 		if (preg_match($regex, $rankID)) {
 			$beltRank = $beltList[$rankID]['Image_Loc'];}
 	}
-	$clientList[] =  array ('ID' => $rankID, 'ClientID' => $cd->ID, 'Rank' => $beltRank, 'FirstName' => $cd->FirstName, 'LastName' => $cd->LastName, 'Nickname' => $cd->NickName, 'Active' => $activeID);
+	$clientList[] =  array ('Id' => $rankID, 'ClientId' => $cd->Id, 'Rank' => $beltRank, 'FirstName' => $cd->FirstName, 'LastName' => $cd->LastName, 'Nickname' => $cd->NickName, 'Active' => $activeID);
 		
 }
 usort($clientList, compare_fullname);
@@ -120,7 +124,7 @@ foreach ($clientList as $cLs) {
 		$buttonString = $buttonStringHidden;
 	} else {
 		$imgRank = '<img  style="vertical-align:middle" src="belts/' . $cLs['Rank'] . '" style="width:180px;height:20px;">';
-		$rankGrp = intval($cLs['ID'][0]);
+		$rankGrp = intval($cLs['Id'][0]);
 		switch ($rankGrp){
 			case 0:
 				$dropStringMid = $dropStringStyleShow.'Little Ninjas<span class="caret"></span>';
@@ -146,7 +150,7 @@ foreach ($clientList as $cLs) {
 	}
 	$slideString = $dropStringPre.$dropStringMid.$dropStringSuf;
 	
-	$cdsHtml .= sprintf('<tr class="clientList" id="'.$cLs['ClientID'].'" rank1="'.$cLs['ID'].'" style="vertical-align:middle">
+	$cdsHtml .= sprintf('<tr class="clientList" id="'.$cLs['ClientId'].'" rank1="'.$cLs['Id'].'" style="vertical-align:middle">
 							<td id="RankImg" style="vertical-align:middle">'.$imgRank.'</td>
 							<td id="FirstName" style="vertical-align:middle">%s</td>
 							<td id="LastName" style="vertical-align:middle">%s</td>

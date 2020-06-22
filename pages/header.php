@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="http://www.zar-dev.net">
+			<a class="navbar-brand" href="http://www.fairwoodmartialarts.com">
 				<div>
 				<img src="icons/FMA_Logo.jpg" style="width:120px;height:40px;"></div>
 			</a>

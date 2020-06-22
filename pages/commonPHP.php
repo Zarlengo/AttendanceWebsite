@@ -10,5 +10,6 @@
 	require_once(__ROOT__ . '/includes/Classes_Variable.php');
 	require_once(__ROOT__ . '/includes/BeltRanks.php');
 	require_once(__ROOT__ . '/includes/Belt_List.php');
+	require_once(__ROOT__ . '/AddRanks/clientList.php');
 	require_once(__ROOT__ . '/pages/Load_Script.php');
 	echo '</div>';

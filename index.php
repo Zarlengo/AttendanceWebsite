@@ -9,5 +9,6 @@
 	<body>
 		<?php require 'pages/commonPHP.php'; ?>
 		<?php require 'pages/getClients.php'; ?>
+		<?php require 'AddRanks/addRanks.php'; ?>
 	</body>
 </html>

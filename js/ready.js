@@ -117,7 +117,7 @@ jQuery.fn.extend({
 	}
 });
 
-$( window ).load(function() {
+$(window).on('load', function() {
 	$("tr.readyList").hide();
 	$("#NoMatches").css("display", $("#NoMatches").css("display") === 'none' ? '' : 'none');
 			waitingDialog.hide();	

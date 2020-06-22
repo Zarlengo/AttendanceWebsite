@@ -54,7 +54,7 @@
 		});
 
 
-	$( window ).load(function() {
+	$(window).on('load', function() {
 		$("tr#NoMatches").hide();
 		$("button#attCheck").text('Check Attendance');
 		waitingDialog.hide();

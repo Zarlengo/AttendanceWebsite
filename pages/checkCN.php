@@ -1,5 +1,5 @@
-<html><body><?php
-	require_once'Load_Script.php';
+<?php
+	require_once 'Load_Script.php';
 
 	// initialize default credentials
 	$creds = new SourceCredentials($sourcename, $password, array($siteID));
@@ -15,22 +15,19 @@
 	// get a list of upcoming classes
 	
 	$result = $classService->GetClassVisits($CNclassID);
-	$cds = $result->GetClassVisitsResult->Class->Visits->Visit;
+	$cds = $result->Class->Visits;
 	$arraycnt = count($cds);
 	for ($i = 0; $i < $arraycnt; $i++) {
-		if (strpos($cds[$i]->Service->Name, "Unpaid") === false) {
-			$clientID = $cds[$i]->Client->ID;
-			$clientFirst = $cds[$i]->Client->FirstName;
-			$clientLast = $cds[$i]->Client->LastName;
+		if ($cds[$i]->ServiceName != null) {
+			$clientID = $cds[$i]->ClientId;
 			$unpaid = false;
-			$cdsHtml .= sprintf('<li>%s: %s, %s</li>', $clientID, $clientLast, $clientFirst);
+			$cdsHtml .= sprintf('<li>%s</li>', $clientID);
 			
-			$clientList[] = array('ClientID' => $clientID,
-							'ClientFirst' => $clientFirst,
-							'ClientLast' => $clientLast,
+			$clientList[] = array('ClientId' => $clientID,
 							'Unpaid' => $unpaid);
 		}
 	}
+?><html><body><?php
 	echo json_encode($clientList);
 
 ?></body></html>

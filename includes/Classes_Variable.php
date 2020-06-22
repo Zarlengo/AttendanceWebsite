@@ -69,15 +69,15 @@
 	
 	/***************** ClassScheduleID **************/
 	/***************** For specific class info ******/
-	$Class_Schedule_ID[62] = $beltClass[6];				// Monday 16:00		Assistant Instructors
-	$Class_Schedule_ID[56] = $beltClass[6];				// Monday 17:00		Assistant Instructors
-	$Class_Schedule_ID[58] = $beltClass[6];				// Tuesday 16:30	Assistant Instructors
-	$Class_Schedule_ID[60] = $beltClass[6];				// Tuesday 17:30	Assistant Instructors
-	$Class_Schedule_ID[63] = $beltClass[6];				// Wednesday 16:00	Assistant Instructors
-	$Class_Schedule_ID[57] = $beltClass[6];				// Wednesday 17:00	Assistant Instructors
-	$Class_Schedule_ID[64] = $beltClass[6];				// Thursday 15:30	Assistant Instructors
-	$Class_Schedule_ID[59] = $beltClass[6];				// Thursday 16:30	Assistant Instructors
-	$Class_Schedule_ID[61] = $beltClass[6];				// Thursday 17:30	Assistant Instructors
+	$Class_Schedule_ID[212] = $beltClass[6];			// Monday 16:00		Assistant Instructors
+	$Class_Schedule_ID[198] = $beltClass[6];			// Monday 17:00		Assistant Instructors
+	$Class_Schedule_ID[200] = $beltClass[6];			// Tuesday 16:30	Assistant Instructors
+	$Class_Schedule_ID[202] = $beltClass[6];			// Tuesday 17:30	Assistant Instructors
+	$Class_Schedule_ID[213] = $beltClass[6];			// Wednesday 16:00	Assistant Instructors
+	$Class_Schedule_ID[199] = $beltClass[6];			// Wednesday 17:00	Assistant Instructors
+	$Class_Schedule_ID[214] = $beltClass[6];			// Thursday 15:30	Assistant Instructors
+	$Class_Schedule_ID[201] = $beltClass[6];			// Thursday 16:30	Assistant Instructors
+	$Class_Schedule_ID[203] = $beltClass[6];			// Thursday 17:30	Assistant Instructors
 	
 	$Class_Schedule_ID[171] = array(CopyFrom => 178);	// Monday 18:30		Adults and Teens Karate
 	$Class_Schedule_ID[173] = array(CopyFrom => 179);	// Wednesday 18:30	Adults and Teens Karate
@@ -100,7 +100,7 @@
 	$Class_Description_ID[13] = $beltClass[8]; 																			// Open Workout
 
 	$Class_Description_ID[17] = array_merge($beltClass[5], 					array(Assistant => true));					// Assistant Instructors
-	$Class_Description_ID[30] = array_merge($beltClass[8], 					array(Dues => true));	// Cuong Nhu Dues
+	$Class_Description_ID[30] = array_merge($beltClass[8], 					array(Dues => true));						// Cuong Nhu Dues
 
 	/***************** ENROLLMENTS ********************/
 	$Class_Description_ID[24] = array_merge($beltClass[3], 					array(Testing => true)); 					// Adult Testing
@@ -115,6 +115,7 @@
 	$Class_Description_ID[32] = array_merge($beltClass[0], $beltClass[7]);												// Kata Tournament - Warrior Division
 	$Class_Description_ID[33] = $beltClass[8];																			// Kata Tournament - Weapons
 	$Class_Description_ID[28] = $beltClass[7];																			// Summer Camp
+	$Class_Description_ID[34] = $beltClass[8];																			// Cuong Nhu Seminar
 
 
 	/***************** Removed classes ********************/

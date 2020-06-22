@@ -19,6 +19,24 @@ function toArray($obj)
    if (is_array($obj)) { return $obj; } 
    else { return array($obj); }
 }
+// helper functions
+function header_expand($obj)
+{
+	$header_string = "";
+	foreach ($obj as $key => $value) {
+		if (is_array($value)) {
+			foreach ($value as $element) {
+				$header_string .= "&" . $key . "=" . $element;
+			}
+		} else {
+			$header_string .= "&" . $key . "=" . $value;
+		}
+	}
+	// echo "<pre>";
+	// print_r($header_string);
+	// echo "</pre>";
+	return $header_string;
+}
 function toComplexType($item, $objectName)
 {
 	return new SoapVar($item, XSD_ANYTYPE, $objectName, GetApiNamespace());
@@ -145,6 +163,68 @@ class MBAPIService
 		{
 			throw new Exception('No source user credentials supplied, and no default user credentials stored');
 		}
+	}
+	protected function curl_connect($url, array $options = array(), $method = "GET", $CurrentPage = 0, $token = false)
+	{
+		$pagination = array('limit' => 200, 'offset' => $CurrentPage);
+		$apiKey = "b5a2310ad9f54be9b72bd19e5fa4605a";
+		$siteId = -99;
+		$username = "Siteowner";
+		$password = "apitest1234";
+
+
+		$defaults = array(
+			CURLOPT_HEADER => 0,
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_TIMEOUT => 4
+		);
+
+		if ($method == "POST" || $token == true)
+		{
+			$header = array(
+				CURLOPT_URL => "https://api.mindbodyonline.com/public/v6/usertoken/issue",
+				CURLOPT_POST => 1,
+				CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Api-Key: {$apiKey}","SiteId: {$siteId}"));
+
+			$getToken = array(
+				CURLOPT_POSTFIELDS => json_encode(array("Username" => $username, "Password" => $password)));
+			$ch = curl_init();
+			curl_setopt_array($ch,  ($defaults + $getToken + $header));
+			if( ! $result = curl_exec($ch))
+			{
+				trigger_error(curl_error($ch));
+			}
+			curl_close($ch);
+			$token = json_decode($result)->AccessToken;
+		}
+
+
+		if ($method == "POST")
+		{
+			$header = array(
+				CURLOPT_URL => $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($pagination),
+				CURLOPT_POST => 1,
+				CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Api-Key: {$apiKey}","SiteId: {$siteId}","Authorization: {$token}"));
+
+
+		} else {
+			$options = header_expand($options);
+			
+			// CURLOPT_URL => "https://api.mindbodyonline.com/public/v6/client/clients?limit=200&offset=0&ClientIDs=100011998&SearchText=&IsProspect=&Fields=Clients.CustomClientFields",
+			$header = array(
+				CURLOPT_URL => $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($pagination) . $options,
+				CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Api-Key: {$apiKey}","SiteId: {$siteId}","Authorization: {$token}"));
+			$options = array();
+		}
+
+		$ch = curl_init();
+		curl_setopt_array($ch,  ($options + $defaults + $header));
+		if( ! $result = curl_exec($ch))
+		{
+			trigger_error(curl_error($ch));
+		}
+		curl_close($ch);
+		return json_decode($result);
 	}
 	
 }

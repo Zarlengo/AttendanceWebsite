@@ -6,6 +6,7 @@
 	
 	require_once(__ROOT__ . '/includes/classService.php');
 	require_once(__ROOT__ . '/includes/clientService.php');
+	require_once(__ROOT__ . '/includes/enrollmentService.php');
 		
 /*	require_once(__ROOT__ . '/includes/appointmentService.php');
 	require_once(__ROOT__ . '/includes/finderService.php');
