@@ -1,0 +1,68 @@
+ .navbar-brand-noPadding {
+    padding: 0px 15px;
+}
+
+body {
+    padding-top: 70px;
+	padding-bottom: 70px;
+	background-color: lightgrey;
+}
+
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 5px 5px;
+  font-size: 18px;
+  line-height: 10px;
+}
+.navbar-brand:hover,
+.navbar-brand:focus {
+  text-decoration: none;
+}
+.navbar-brand > img {
+  display: block;
+}
+.toggle.btn {
+    min-width: 100px;
+}
+.affix {
+      top: 0;
+      width: 100%;
+  }
+
+.affix + .container-fluid {
+  padding-top: 70px;
+}
+
+.rotate {
+
+	/* Safari */
+	-webkit-transform: rotate(-90deg);
+
+	/* Firefox */
+	-moz-transform: rotate(-90deg);
+
+	/* IE */
+	-ms-transform: rotate(-90deg);
+
+	/* Opera */
+	-o-transform: rotate(-90deg);
+
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+.button-header {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.nav-pills {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
